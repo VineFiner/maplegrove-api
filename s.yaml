@@ -39,7 +39,7 @@ services:
     component: fc # 组件名称，
     actions: # 自定义执行逻辑，关于actions 的使用，可以参考：https://www.serverless-devs.com/serverless-devs/yaml#行为描述
       pre-deploy: # 在deploy之前运行
-        - component: fc build --use-docker --dockerfile ./code/project/Dockerfile --context ./code/project
+        - component: fc build --use-docker --dockerfile ./code/project/Dockerfile --context ./code/project/strapi-api
       # post-deploy: # 初始化 nas
       #   - component: fc invoke --service-name ${fc-nas-init.output.service.name} --function-name nas-init
     props: # 组件的属性值
@@ -49,8 +49,8 @@ services:
         name: ${vars.functionName} # 函数名
         description: 'project  Function'
         timeout: 60
-        memorySize: 128
-        cpu: 0.1
+        memorySize: 256
+        cpu: 0.2
         diskSize: 512
         instanceConcurrency: 12
         caPort: 80
