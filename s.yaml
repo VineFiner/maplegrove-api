@@ -8,13 +8,21 @@ vars:
     name: "maplegrove-api"
     description: 'project by Serverless Devs'
     role: 'acs:ram::${config(AccountID)}:role/AliyunFcDefaultRole'
-    # nasConfig: auto
+    nasConfig: auto
+    logConfig: auto
   functionName: "strapi"
   environmentVariables: #  为函数配置环境变量
     App_Version: "0.0.1"
     TZ: "Asia/Shanghai"
-  # image: ${env(imageurl)}
-  image: 'registry.cn-hongkong.aliyuncs.com/k3s-service/maplegrove-api:latest'
+    ADMIN_JWT_SECRET: ${env(ADMIN_JWT_SECRET)}
+    API_TOKEN_SALT: ${env(API_TOKEN_SALT)}
+    APP_KEYS: ${env(APP_KEYS)}
+    TRANSFER_TOKEN_SALT: ${env(TRANSFER_TOKEN_SALT)}
+    JWT_SECRET: ${env(JWT_SECRET)}
+    DATABASE_CLIENT: ${env(DATABASE_CLIENT)}
+    DATABASE_FILENAME: ${env(DATABASE_FILENAME)}
+  image: ${env(imageurl)}
+  # image: 'registry.cn-hongkong.aliyuncs.com/k3s-service/maplegrove-api:latest'
 
 services:
   # 初始化 nas
@@ -53,7 +61,7 @@ services:
         cpu: 0.2
         diskSize: 512
         instanceConcurrency: 12
-        caPort: 80
+        caPort: 1337
         environmentVariables: ${vars.environmentVariables} #  为函数配置环境变量
         runtime: custom-container
         customContainerConfig:
