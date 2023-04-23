@@ -1,4 +1,26 @@
 extend: s.yaml
+
+vars:
+  region: "cn-hongkong"
+  service:
+    name: "maplegrove-api"
+    description: 'project by Serverless Devs'
+    role: 'acs:ram::${config(AccountID)}:role/AliyunFcDefaultRole'
+    nasConfig: auto
+    logConfig: auto
+  functionName: "strapi"
+  environmentVariables: #  为函数配置环境变量
+    App_Version: "0.0.1"
+    TZ: "Asia/Shanghai"
+    ADMIN_JWT_SECRET: ${env(ADMIN_JWT_SECRET)}
+    API_TOKEN_SALT: ${env(API_TOKEN_SALT)}
+    APP_KEYS: ${env(APP_KEYS)}
+    TRANSFER_TOKEN_SALT: ${env(TRANSFER_TOKEN_SALT)}
+    JWT_SECRET: ${env(JWT_SECRET)}
+    DATABASE_CLIENT: ${env(DATABASE_CLIENT)}
+    DATABASE_FILENAME: ${env(DATABASE_FILENAME)}
+  image: ${env(imageurl)}
+
 services:
   project-function: #  服务名称
     component: fc # 组件名称，
@@ -11,7 +33,7 @@ services:
       region: ${vars.region} # 关于变量的使用方法，可以参考：https://www.serverless-devs.com/serverless-devs/yaml#变量赋值
       service: ${vars.service}
       function:
-        name: "${vars.functionName}_dev" # 函数名
+        name: "${vars.functionName}_inherit_kaniko" # 函数名
         description: 'project  Function'
         timeout: 60
         memorySize: 256
