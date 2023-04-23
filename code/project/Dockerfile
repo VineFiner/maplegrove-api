@@ -24,6 +24,7 @@ ENV NODE_ENV=${NODE_ENV}
 # 工作目录
 # WORKDIR /opt/app
 WORKDIR /data/strapi
+
 COPY --from=build /opt/node_modules ./node_modules
 ENV PATH /opt/node_modules/.bin:$PATH
 COPY --from=build /opt/app ./
