@@ -10,8 +10,8 @@ COPY ./package.json ./package-lock.json ./
 ENV PATH /opt/node_modules/.bin:$PATH
 RUN npm install
 # 工作目录
-# WORKDIR /opt/app
-WORKDIR /data/strapi
+WORKDIR /opt/app
+# WORKDIR /data/strapi
 
 COPY ./ .
 RUN npm run build
